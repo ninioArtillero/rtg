@@ -1,5 +1,6 @@
 module Sound.RTG.Ritmo.Bjorklund (euclideanPattern) where
 
+{-@ euclideanPattern :: Nat -> Nat -> { x : [Nat] |  null x || head x == 1 || head x == 0 } @-}
 euclideanPattern :: Int -> Int -> [Int]
 euclideanPattern onsets pulses = bjorklund front back
   where

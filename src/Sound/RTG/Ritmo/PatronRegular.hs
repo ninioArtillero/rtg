@@ -3,6 +3,7 @@ module Sound.RTG.Ritmo.PatronRegular where
 -- Ritmos euclideanos utilizando un redondeo modular
 -- Esta aproximación es una adaptación del trabajo final con Mauricio Rodriguez
 
+{-@ patronRegular :: Nat -> {n : Nat | n /= 0} -> [Nat] @-}
 patronRegular :: Int -> Int -> [Int]
 patronRegular pulses events =
   let p' = fromIntegral pulses :: Rational

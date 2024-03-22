@@ -52,8 +52,14 @@ instance Show Polygon where
 
 -- AUX: Numbers
 -- TODO: Comparar con factors de Data.Numbers
+{-@ divisors :: Nat -> [Nat] @-}
 divisors :: Int -> [Int]
 divisors n = [k | k <- [2 .. (n - 1)], n `rem` k == 0]
+
+{-@ Type Pos = {v:Int | 0 < v} @-}
+
+{-@ inc :: Pos -> Pos@-}
+inc x = x + 1
 
 -- Coprime Disjoint Regular Polygons
 
@@ -235,6 +241,7 @@ polygonPositionList (Polygon n k _) =
 perfectlyBalancedRhythms :: Pulses -> [[Int]]
 perfectlyBalancedRhythms n = braceletNub . filter ((`Set.isSubsetOf` Set.fromList [0,1]) . Set.fromList) $ summedCombinations n
 
+{-@ availablePolygons :: n : Nat -> [Polygon]@-}
 availablePolygons n = map (basePolygon n) (divisors n)
 
 -- TODO: cambiar definición para generar combinaciones antes de transformar en patrón.

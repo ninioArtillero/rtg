@@ -13,6 +13,7 @@ import Data.Ratio (Ratio, denominator, numerator, (%))
 numDenum :: Integral a => Ratio a -> (a, a)
 numDenum x = (numerator x, denominator x)
 
+{-@ pattern :: Integral a => a -> {n : a | n /= 0} -> Ratio a @-}
 pattern (:%) :: Integral a => a -> a -> Ratio a
 pattern a :% b <-
   (numDenum -> (a, b))
