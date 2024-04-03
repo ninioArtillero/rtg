@@ -11,19 +11,20 @@
 # Desde esta sesión se pueden utilizar los comandos `cabal` para interactuar con la biblioteca.
 # Utilizo Nix de esta manera para abstraer la instalación de Haskell.
 #
-# Aquí refiero al commit de nixpkgs correspondiente a mi versión local (canal),
-# mediante el número de commit corto obtenido de la parte final de `sudo nixos-version`
+# Se fija un commit de nixpkgs para reproducibilidad
+# mediante el número de commit corto o largo.
+# Por ejemplo, se puede obtener el correspondiente a la versión de NixOS de la parte final de `sudo nixos-version`
+# y el hash utilizando `nix-prefetch-url --unpack "<url>"`
 # Actual:
 # Canal de Nix: nixos-23.11 (stable)
-# Version de ghc: 9.4.8
-# Versión de base: 4.17.2.1
+# 23.11.5648.44733514b72e (Tapir)
 #
 let
   pkgs = import (fetchTarball {
-    url = "https://github.com/NixOS/nixpkgs/archive/b0b2c5445c64.tar.gz";
-    sha256 = "1kvscvl8in723440i0w0sv2j2pawdxjkbiqgx85jda2cz92l6rpm";
+    url = "https://github.com/NixOS/nixpkgs/archive/44733514b72e.tar.gz";
+    sha256 = "1cdk2s324yanzy7sz1pshnwrgm0cyp6fm17l253rbsjb6s6a0i3a";
   }) { };
-in pkgs.haskellPackages.developPackage {
+in pkgs.haskell.packages.ghc98.developPackage {
   root = ./.;
   modifier = drv:
     pkgs.haskell.lib.addBuildTools drv
