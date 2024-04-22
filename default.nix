@@ -24,9 +24,17 @@ let
     url = "https://github.com/NixOS/nixpkgs/archive/44733514b72e.tar.gz";
     sha256 = "1cdk2s324yanzy7sz1pshnwrgm0cyp6fm17l253rbsjb6s6a0i3a";
   }) { };
-in pkgs.haskell.packages.ghc98.developPackage {
+  compilerVersion = "ghc98";
+  compiler = pkgs.haskell.packages."${compilerVersion}";
+in compiler.developPackage {
   root = ./.;
+  # https://haskell4nix.readthedocs.io/frequently-asked-questions.html#how-to-specify-source-overrides-for-your-haskell-package
+  source-overrides = {
+    liquidhaskell = "0.9.8.1";
+    liquid-fixpoint = "0.9.6.3";
+    liquidhaskell-boot = "0.9.8.1";
+  };
   modifier = drv:
     pkgs.haskell.lib.addBuildTools drv
-    (with pkgs.haskellPackages; [ cabal-install ]);
+    (with pkgs.haskellPackages; [ cabal-install ghcid ]);
 }
