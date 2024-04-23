@@ -40,15 +40,10 @@ euclideanPattern'' onsets pulses =
     front = replicate onsets' [1]
     back = replicate (abs $ pulses - onsets') [0]
 
-{-@ reflect map @-}
-{-@ reflect and @-}
-{-@ reflect (.) @-}
 {-@
-bjorklund ::
-  { xs : [[Nat]] | and (map ((== 1) . len) xs) }  ->
-  { ys : [[Nat]] | and (map ((== 1) . len) ys) } ->
+bjorklund :: xs : [[Nat]]  ->  ys : [[Nat]]  ->
   { zs : [Nat] | len zs == len xs + len ys}
-  @-}
+@-}
 bjorklund :: [[Int]] -> [[Int]] -> [Int]
 bjorklund front back
   | (not . null) front && length back > 1 = bjorklund newFront newBack
